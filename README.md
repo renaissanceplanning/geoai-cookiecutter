@@ -19,7 +19,7 @@ GeoAI-Cookiecutter project grew out of a need within the Advanced Analytics team
 ## To start a new project, run:
 
 ``` cmd
-> cookiecutter https://github.com/esri/geoai-cookiecutter
+> cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
 ```
 
 ## Issues
