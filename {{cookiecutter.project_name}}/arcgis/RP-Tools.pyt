@@ -15,8 +15,8 @@ prj_pth = Path(__file__).parent.parent
 src_pth = prj_pth/'src'
 sys.path.insert(0, str(src_pth))
 
-# import geoai-cookiecuter support package
-import ck_tools
+# import cookiecuter support package
+import tools
 
 # load the dotenv file
 load_dotenv(find_dotenv())
@@ -29,8 +29,8 @@ class Toolbox(object):
     def __init__(self):
         """Define the toolbox (the name of the toolbox is the name of the
         .pyt file)."""
-        self.label = "GeoAI-Tools"
-        self.alias = "GeoAI-Tools"
+        self.label = "RP-Tools"
+        self.alias = "RP-Tools"
 
         # List of tool classes associated with this toolbox
         self.tools = [AddGroupToGis, CreateDataResources, CreateAoiMask]
