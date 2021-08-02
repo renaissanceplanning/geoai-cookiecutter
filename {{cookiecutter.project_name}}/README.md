@@ -2,14 +2,30 @@
 
 {{cookiecutter.description}}
 
-## Getting Started
+## Requirements
+
+ * ArcGIS Pro 2.7 (soft requirement)
+ * [Conda (Anaconda or miniconda)](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html)
+ * [Cookiecutter](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0
+
+``` cmd
+> conda install -c conda-forge cookiecutter
+```
+
+## To start a new project, run:
+
+``` cmd
+> cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
+```
+
+## Next
 
 1 - Clone this repo.
 
 2 - Create an environment with the requirements.
     
-```
-        > make env
+``` cmd
+> make env
 ```
 
 3 - Explore - If you are more into Python, a good place to start is `jupyter lab` from the root of the project, and 
