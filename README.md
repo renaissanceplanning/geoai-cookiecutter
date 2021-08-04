@@ -10,18 +10,34 @@ encourage consistency, increase repeatability, encourage documentation, and enco
 
 ## Requirements
 
+ * ArcGIS Pro 2.7 (soft requirement)
  * [Conda (Anaconda or miniconda)](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html)
  * [Cookiecutter](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0
 
-``` cmd
-> conda install -c conda-forge cookiecutter
-```
+## Install Cookiecutter lib
+### Open Source Project
+- open anaconda prompt as admin
+    ``` cmd
+    > conda install -c conda-forge cookiecutter
+    ```
+### ESRI Project
+- open anaconda prompt for Arcgis Pro (Start / Arcgis / Python Command Prompt)
+    ``` cmd
+    > conda install -c conda-forge cookiecutter
+    ```
 
-## To start a new project, run:
-
-``` cmd
-> cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
-```
+### To start a new project, run:
+- Open anaconda prompt and change directory (choose anaconda prompt according to project type)
+    ``` cmd
+    > cd path/to/local/install
+    
+     ex: --> cd C:\github\projects
+    ```
+    ``` cmd
+    > cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
+    ```
+  - follow the prompts 
+- Push the newly created repo up to github
 
 ## Issues
 

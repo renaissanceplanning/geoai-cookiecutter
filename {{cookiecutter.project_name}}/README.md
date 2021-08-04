@@ -2,45 +2,8 @@
 
 {{cookiecutter.description}}
 
-**((Delete Everything between #######################))**
-**#########################################################**
-## Requirements
 
- * ArcGIS Pro 2.7 (soft requirement)
- * [Conda (Anaconda or miniconda)](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html)
- * [Cookiecutter](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0
-
-## Install Cookiecutter lib
-### Open Source Project
-- open anaconda prompt as admin
-    ``` cmd
-    > conda install -c conda-forge cookiecutter
-    ```
-### ESRI Project
-- open anaconda prompt for Arcgis Pro (Start / Arcgis / Python Command Prompt)
-    ``` cmd
-    > conda install -c conda-forge cookiecutter
-    ```
-
-### To start a new project, run:
-- Open anaconda prompt and change directory (choose anaconda prompt according to project type)
-    ``` cmd
-    > cd path/to/local/install
-    
-     ex: --> cd C:\github\projects
-    ```
-    ``` cmd
-    > cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
-    ```
-  - follow the prompts 
-- Update README by removing CookieCutter install and setup instructions
-- Push the newly created repo up to github
-        
-**((Delete Everything between #######################))**
-**#########################################################**
-
-
-## Next
+## Getting Started
 
 1 - Clone this repo.
 
@@ -126,3 +89,5 @@ _______________________
 spatial data science project template</a>. This template, in turn, is simply an extension and light modification of the 
 <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data 
 science project template</a>. cookiecutterdatascience</small></p>
+
+
