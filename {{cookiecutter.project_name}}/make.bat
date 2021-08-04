@@ -60,7 +60,7 @@ GOTO %1
         CALL conda install -c conda-forge mamba
 
         :: Create new environment from environment file
-        CALL mamba env create -f environment_dev.yml
+        CALL mamba env create -f environment.yml
 
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
