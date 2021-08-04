@@ -56,8 +56,11 @@ GOTO %1
 :env
     ENDLOCAL & (
 
+        :: Install MAMBA for faster solves
+        CALL conda install -c conda-forge mamba
+
         :: Create new environment from environment file
-        CALL conda env create -f environment_dev.yml
+        CALL mamba env create -f environment.yml
 
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
@@ -69,14 +72,14 @@ GOTO %1
     EXIT /B
 
 :: If pre ArcGIS Pro 2.7
-:env_old
+:env_arc
     ENDLOCAL & (
 
         :: Clone the main arcgispro-py3 environment
         CALL conda create --name "%ENV_NAME%" --clone arcgispro-py3
 
         :: Create new environment from environment file
-        CALL conda env update -e "%ENV_NAME%" -f environment.yml
+        CALL conda env update -e "%ENV_NAME%" -f environment_arc.yml
 
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
