@@ -59,8 +59,11 @@ GOTO %1
         :: Install MAMBA for faster solves
         CALL conda install -c conda-forge mamba
 
+        :: update environment with package depenencies
+        CALL python check_package_deps.py
+
         :: Create new environment from environment file
-        CALL mamba env create -f environment.yml
+        CALL mamba env create -f build_environment.yml
 
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .

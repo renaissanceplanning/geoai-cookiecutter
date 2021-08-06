@@ -23,10 +23,10 @@ dependencies:
   - r-sf
   - r-tmap
   - pip:
-    - -e ../../packages/emma
-    - -e ../../packages/rputils
-    - -e ../../packages/algi
-    - -e ../../packages/rpio
+#    - -e ../../packages/emma  # requires
+#    - -e ../../packages/rputils
+#    - -e ../../packages/algi
+#    - -e ../../packages/rpio
     - esridump
     - azure-storage-blob
     - boto3
