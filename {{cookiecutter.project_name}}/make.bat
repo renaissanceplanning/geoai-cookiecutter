@@ -57,8 +57,8 @@ GOTO %1
     ENDLOCAL & (
 
         :: Install MAMBA for faster solves
-        CALL conda install -c conda-forge mamba
-
+        CALL conda install -c conda-forge mamba yaml -y
+        
         :: update environment with package depenencies
         CALL python check_package_deps.py
 
