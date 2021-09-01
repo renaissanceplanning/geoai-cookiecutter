@@ -78,11 +78,11 @@ GOTO %1
 :env_arc
     ENDLOCAL & (
 
-        :: Clone the main arcgispro-py3 environment
-        CALL conda create --name "%ENV_NAME%" --clone arcgispro-py3
+        :: Install MAMBA for faster solves
+        CALL conda install -c conda-forge mamba yaml -y
 
         :: Create new environment from environment file
-        CALL conda env update -e "%ENV_NAME%" -f environment_arc.yml
+        CALL mamba env create -f environment_arc.yml
 
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .

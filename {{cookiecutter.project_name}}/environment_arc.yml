@@ -5,12 +5,12 @@ channels:
   - conda-forge
 
 dependencies:
+  - esri:arcpy
   - esri::arcgis
   - cookiecutter
   - jupyterlab
   - nodejs
   - dask
-  - pygeos
   - pandas
   - git
   - sphinx
