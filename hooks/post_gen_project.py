@@ -37,7 +37,7 @@ def setup_data(data_pth: Path) -> Path:
     """create all the data resources for the available environment from scratch to ensure version compatibility"""
 
     # iterate the data subdirectories
-    for data_name in ['interim', 'raw', 'processed', 'external']:
+    for data_name in ['INTERIM', 'RAW', 'PRODUCTION', 'REF']:
 
         # ensure the data subdirectory exists
         dir_pth = data_pth / data_name
