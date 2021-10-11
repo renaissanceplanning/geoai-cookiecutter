@@ -90,7 +90,7 @@ class ExampleObject(object):
 
         .. code-block:: python
 
-            from from {{cookiecutter.support_library}} import ExampleObject
+            from {{cookiecutter.support_library}} import ExampleObject
 
             pth = r'C:/path/to/some/table.csv'
 
