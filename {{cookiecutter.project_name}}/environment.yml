@@ -10,6 +10,7 @@ dependencies:
   - jupyterlab
   - nodejs
   - dask
+  - fiona
   - pygeos
   - geopandas
   - pandas
