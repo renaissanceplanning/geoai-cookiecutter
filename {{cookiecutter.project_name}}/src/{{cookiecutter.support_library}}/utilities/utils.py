@@ -170,12 +170,12 @@ def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False
     return data_pth
 
 
-def create_aoi_mask_layer(aoi_feature_layer, output_feature_class, style_layer=None):
+def create_aoi_mask_layer(paths, aoi_feature_layer, output_feature_class, style_layer=None):
     """Create a visibility mask to focus on an Area of Interest in a map."""
     assert has_arcpy, 'ArcPy is required (environment with arcpy referencing ArcGIS Pro functionality) to create an AOI mask.'
 
     # get the style layer if one is not provided
-    styl_lyr = Paths.dir_arcgis_lyrs / 'aoi_mask.lyrx' if style_layer is None else style_layer
+    styl_lyr = paths.dir_arcgis_lyrs / 'aoi_mask.lyrx' if style_layer is None else style_layer
 
     # ensure aoi is polygon
     geom_typ = arcpy.Describe(aoi_feature_layer).shapeType
