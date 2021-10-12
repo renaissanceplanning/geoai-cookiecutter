@@ -212,15 +212,14 @@ def create_aoi_mask_layer(paths, aoi_feature_layer, output_feature_class, style_
 class Paths:
     """Object to easily reference project resources"""
 
-    def __init__(self, project_dir=None, data_dir=None):
+    def __init__(self, data_dir=None):
         # set defaults for project and data directories
-        self.dir_prj = Path(project_dir)
-        if project_dir is None:
-            self.dir_prj = dir_prj = Path(__file__).parent.parent.parent
+        self.dir_prj = dir_prj = Path(__file__).parent.parent.parent
 
-        self.dir_data = Path(data_dir)
         if data_dir is None:
             self.dir_data = Path(self.dir_prj, 'data')
+        else:
+            self.dir_data = Path(data_dir)
 
         # set internal project paths
         self.dir_app = Path(self.dir_prj, 'app')
