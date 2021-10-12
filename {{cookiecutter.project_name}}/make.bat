@@ -28,6 +28,7 @@ SET PROJECT_DIR=%cd%
 SET PROJECT_NAME={{ cookiecutter.project_name }}
 SET SUPPORT_LIBRARY = {{ cookiecutter.support_library }}
 SET ENV_NAME={{ cookiecutter.conda_environment_name }}
+SET DATA_DIR = {{ cookiecutter.data_directory }}
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: COMMANDS                                                                     :
