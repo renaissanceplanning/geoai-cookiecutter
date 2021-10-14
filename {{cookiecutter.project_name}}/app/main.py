@@ -1,8 +1,12 @@
+import os
 from config import conf
 from {{cookiecutter.support_library}} import utilities
 
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
+
 # data pathing setup
-DATA_PATH = conf.DATA_PATH
+DATA_PATH = os.getenv("DATA_PATH")  # the .env file will have this defined
 PATHS = utilities.Paths(data_dir=DATA_PATH)
 
 
