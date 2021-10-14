@@ -3,6 +3,7 @@ name: {{ cookiecutter.conda_environment_name }}
 channels:
   - esri
   - conda-forge
+  - anaconda
 
 dependencies:
   - esri::arcgis
@@ -10,9 +11,10 @@ dependencies:
   - jupyterlab
   - nodejs
   - dask
-  - fiona
-  - pygeos
-  - geopandas
+  - conda-forge::fiona
+  - conda-forge::pygeos
+  - conda-forge::geopandas
+  - conda-forge::rtree=0.9.3
   - pandas
   - git
   - sphinx
@@ -24,10 +26,13 @@ dependencies:
   - r-sf
   - r-tmap
   - pip:
-#    - -e ../../packages/emma  # requires
-#    - -e ../../packages/rputils
+#    - -e ../../packages/emma
+    - -e ../../packages/rputils
 #    - -e ../../packages/algi
-#    - -e ../../packages/rpio
+#    - -e ../../packages/gary
+#    - -e ../../packages/biff
+#    - -e ../../packages/roxy
+#    - -e ../../packages/sophia
     - esridump
     - azure-storage-blob
     - boto3
