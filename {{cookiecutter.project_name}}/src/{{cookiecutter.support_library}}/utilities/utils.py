@@ -6,6 +6,7 @@ import random
 from pathlib import Path, PurePath
 import shutil
 from functools import reduce
+from typing import Union
 import appdirs
 import yaml
 
@@ -209,6 +210,7 @@ def create_aoi_mask_layer(paths, aoi_feature_layer, output_feature_class, style_
 
 
 # CLASSES
+#TODO: add method to create new directory and add to Paths
 class Paths:
     """Object to easily reference project resources"""
 
@@ -235,7 +237,17 @@ class Paths:
         self.gdb_int = str(Path(self.dir_int, 'interim.gdb'))
         self.gdb_out = str(Path(self.dir_out, 'processed.gdb'))
 
-
+    # TODO: flush this out more cleanly
+    def add_dir(self, dir_name, dir_path):
+        """
+        allows Paths object to be extended to include more paths if needed in
+        procedural code
+        """
+        if isinstance(dir_path, str):
+            new_path = Path(dir_path)
+        if not new_path.exists():
+            new_path.mkdir()
+        setattr(self, dir_name, new_path)
 
     @staticmethod
     def _create_resource(pth: Path) -> Path:
