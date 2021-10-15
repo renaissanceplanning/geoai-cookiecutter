@@ -70,10 +70,16 @@ class Environment(object):
                 # read yml to dict
                 pkg_env = Environment(yaml_data)
                 # append any dependencies
-                channels += pkg_env.env_channels
-                pip_deps += pkg_env.pip_deps
-                conda_deps += pkg_env.conda_deps
-
+                pkg_chans = [chan for chan in pkg_env.env_channels if chan not in channels]
+                if pkg_chans:
+                    channels += pkg_chans
+                if pkg_env.pip_deps:
+                    pkg_pips = [pdeps for pdeps in pkg_env.pip_deps if pdeps not in pip_deps]
+                    if pkg_pips:
+                        pip_deps += pkg_pips
+                pkg_cdeps = [cdep for cdep in pkg_env.conda_deps if cdep not in conda_deps]
+                if pkg_cdeps:
+                    conda_deps += pkg_cdeps
         return channels, conda_deps, pip_deps
 
 
