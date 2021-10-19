@@ -13,14 +13,21 @@ import yaml
 import fiona
 import pandas as pd
 
-from arcgis.gis import GIS, Group
-from arcgis.env import active_gis
 from dotenv import find_dotenv, load_dotenv
+
+# check for arcgis to accomodate projects not needing arcgis
+if importlib.util.find_spec("arcgis") is not None:
+    from arcgis.gis import GIS, Group
+    from arcgis.env import active_gis
+    has_arcgis = True
+else:
+    has_arcgis = False
+    GIS = None
+    Group = None
 
 # see if arcpy available to accommodate non-windows environments
 if importlib.util.find_spec('arcpy') is not None:
     import arcpy
-
     has_arcpy = True
 else:
     has_arcpy = False
@@ -74,35 +81,40 @@ def add_group(gis: GIS = None, group_name: str = None) -> Group:
 
     Returns: Group
     """
-    # if no group name provided
-    if group_name is None:
-        # load the group name
-        group_name = os.getenv('ESRI_GIS_GROUP')
-
-        err_msg = 'A group name must either be defined in the .env file or explicitly provided.'
-        assert isinstance(group_name, str), err_msg
-        assert len(group_name), err_msg
-
-    # create an instance of the group manager
-    gmgr = gis.groups
-
-    # determine if group exists
-    grp_srch = [g for g in gmgr.search() if g.title.lower() == group_name.lower()]
-
-    # if the group does not exist
-    if len(grp_srch) == 0:
-
-        # create the group
-        grp = gmgr.create(group_name)
-
-        # ensure the group was successfully created
-        assert isinstance(grp, Group), 'Failed to create the group in the Cloud GIS.'
-
-    # if the group already exists, just get it
+    if not has_arcgis:
+        raise ImportError(
+            "attempting to use 'arcgis' python api, but package is not installed"
+        )
     else:
-        grp = grp_srch[0]
+        # if no group name provided
+        if group_name is None:
+            # load the group name
+            group_name = os.getenv('ESRI_GIS_GROUP')
 
-    return grp
+            err_msg = 'A group name must either be defined in the .env file or explicitly provided.'
+            assert isinstance(group_name, str), err_msg
+            assert len(group_name), err_msg
+
+        # create an instance of the group manager
+        gmgr = gis.groups
+
+        # determine if group exists
+        grp_srch = [g for g in gmgr.search() if g.title.lower() == group_name.lower()]
+
+        # if the group does not exist
+        if len(grp_srch) == 0:
+
+            # create the group
+            grp = gmgr.create(group_name)
+
+            # ensure the group was successfully created
+            assert isinstance(grp, Group), 'Failed to create the group in the Cloud GIS.'
+
+        # if the group already exists, just get it
+        else:
+            grp = grp_srch[0]
+
+        return grp
 
 
 def add_directory_to_gis(dir_name: str = None, gis: GIS = None):
@@ -114,25 +126,30 @@ def add_directory_to_gis(dir_name: str = None, gis: GIS = None):
     assert isinstance(dir_name, str), 'A name for the directory must be provided explicitly in the "dir_name" ' \
                                       'parameter if there is not a PROJECT_NAME specified in the .env file.'
 
-    # try to figure out what GIS to use
-    if gis is None:
-        gis = get_gis()
-
-    assert isinstance(gis, GIS), 'A GIS instance, either an active_gis in the session, credentials in the .env file, ' \
-                                 'or an active GIS instance explicitly passed into the "gis" parameter.'
-
-    # create the directory
-    res = gis.content.create_folder(dir_name)
-
-    # if the response is None, the folder already exists, so don't worry about it
-    if res is None:
-        status = True
-
-    # otherwise, set status based on if the title is in the response
+    if not has_arcgis:
+        raise ImportError(
+            "attempting to use 'arcgis' python api, but package is not installed"
+        )
     else:
-        status = 'title' in res.keys()
+        # try to figure out what GIS to use
+        if gis is None:
+            gis = get_gis()
 
-    return status
+        assert isinstance(gis, GIS), 'A GIS instance, either an active_gis in the session, credentials in the .env file, ' \
+                                     'or an active GIS instance explicitly passed into the "gis" parameter.'
+
+        # create the directory
+        res = gis.content.create_folder(dir_name)
+
+        # if the response is None, the folder already exists, so don't worry about it
+        if res is None:
+            status = True
+
+        # otherwise, set status based on if the title is in the response
+        else:
+            status = 'title' in res.keys()
+
+        return status
 
 
 def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False) -> Path:
@@ -210,7 +227,6 @@ def create_aoi_mask_layer(paths, aoi_feature_layer, output_feature_class, style_
 
 
 # CLASSES
-#TODO: add method to create new directory and add to Paths
 class Paths:
     """Object to easily reference project resources"""
 
@@ -243,11 +259,11 @@ class Paths:
         allows Paths object to be extended to include more paths if needed in
         procedural code
         """
-        if isinstance(dir_path, str):
-            new_path = Path(dir_path)
+        new_path = Path(dir_path, dir_name)
         if not new_path.exists():
             new_path.mkdir()
         setattr(self, dir_name, new_path)
+        return new_path
 
     @staticmethod
     def _create_resource(pth: Path) -> Path:
@@ -466,3 +482,16 @@ class Registry(object):
         return self.copy_file(in_file=file_path, out_dir=out_folder)
 
 
+if __name__ == "__main__":
+    import os
+    from {{cookiecutter.support_library}} import utilities
+
+    from dotenv import find_dotenv, load_dotenv
+
+    load_dotenv(find_dotenv())
+
+    # data pathing setup
+    DATA_PATH = os.getenv("DATA_DIR")  # the .env file will have this defined
+    PATHS = utilities.Paths(data_dir=DATA_PATH)
+    test = PATHS.add_dir(dir_name="test", dir_path=PATHS.dir_int)
+    print()
