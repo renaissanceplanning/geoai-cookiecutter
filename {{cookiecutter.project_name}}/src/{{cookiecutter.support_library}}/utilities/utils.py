@@ -248,6 +248,8 @@ class Paths:
         self.dir_raw = Path(self.dir_data, 'RAW')
         self.dir_int = Path(self.dir_data, 'INTERIM')
         self.dir_out = Path(self.dir_data, 'PROCESSED')
+        # reference folder
+        self.dir_ref = Path(self.dir_data, 'REF')
         # set geodatabase paths
         self.gdb_raw = str(Path(self.dir_raw, 'raw.gdb'))
         self.gdb_int = str(Path(self.dir_int, 'interim.gdb'))
