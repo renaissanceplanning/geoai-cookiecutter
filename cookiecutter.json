@@ -10,5 +10,6 @@
     "esri_cloud_gis_username": "",
     "esri_cloud_gis_password": "",
     "esri_cloud_gis_group_name": "{{ cookiecutter.project_name }}",
-    "data_directory": ""
+    "data_directory": "",
+    "command_line_interface": ["no", "yes"]
 }
