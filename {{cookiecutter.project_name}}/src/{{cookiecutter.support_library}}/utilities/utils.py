@@ -70,7 +70,6 @@ def get_gis():
 def add_group(gis: GIS = None, group_name: str = None) -> Group:
     """
     Add a group to the GIS for the project for saving resources.
-
     Args:
         gis: Optional
             arcgis.gis.GIS object instance.
@@ -162,7 +161,7 @@ def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False
     data_pth = Path(data_pth) if isinstance(data_pth, str) else data_pth
 
     # iterate the data subdirectories
-    for data_name in ['interim', 'raw', 'processed', 'external']:
+    for data_name in ['INTERIM', 'RAW', 'PRODUCTION', 'REF']:
 
         # ensure the data subdirectory exists
         dir_pth = data_pth / data_name
@@ -171,7 +170,6 @@ def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False
 
         # if working in an arcpy environment
         if has_arcpy:
-
             # remove the file geodatabase if it exists and recreate it to make sure compatible with version of Pro
             fgdb_pth = dir_pth / f'{data_name}.gdb'
             if fgdb_pth.exists():

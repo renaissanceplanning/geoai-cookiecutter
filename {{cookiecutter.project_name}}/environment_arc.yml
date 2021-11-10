@@ -23,6 +23,7 @@ dependencies:
   - r-tmap
   - esri::r-arcgisbinding
   - pip:
+#    - ../../packages/esri_tools  # future package to be used with ESRI arcpy tools
     - esridump
     - azure-storage-blob
     - boto3

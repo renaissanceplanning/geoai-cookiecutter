@@ -7,9 +7,6 @@
     "open_source_license": ["Apache 2.0", "MIT", "BSD-3-Clause", "No license file"],
     "conda_environment_name": "{{ cookiecutter.project_name }}",
     "esri_cloud_gis_url": "https://arcgis.com",
-    "esri_cloud_gis_username": "",
-    "esri_cloud_gis_password": "",
     "esri_cloud_gis_group_name": "{{ cookiecutter.project_name }}",
-    "data_directory": "",
-    "command_line_interface": ["no", "yes"]
+    "package_base_branches": "dev_init"
 }
