@@ -75,15 +75,18 @@ GOTO %1
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
         :: Activate teh environment so you can get to work
-        CALL activate "%ENV_NAME%"
-        :: NOTE: add git branch switching to activate the correct branch
-
+        CALL activate "%ENV_NAME_ARC%"
     )
     EXIT /B
 
 :: Activate the environment
 :env_activate
     ENDLOCAL & CALL activate "%ENV_NAME%"
+    EXIT /B
+
+:: Activate the environment
+:env_activate_arc
+    ENDLOCAL & CALL activate "%ENV_NAME_ARC%"
     EXIT /B
 
 :: Remove the environment
@@ -93,6 +96,15 @@ GOTO %1
 		CALL conda env remove --name "%ENV_NAME%" -y
 	)
 	EXIT /B
+
+:: Remove the environment
+:env_remove_arc
+	ENDLOCAL & (
+		CALL conda deactivate
+		CALL conda env remove --name "%ENV_NAME_ARC%" -y
+	)
+	EXIT /B
+
 
 :: Perform data preprocessing steps contained in the make_data.py script.
 :data

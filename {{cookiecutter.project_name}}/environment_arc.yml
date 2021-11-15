@@ -25,5 +25,6 @@ dependencies:
   - pip:
 #    - ../../packages/esri_tools  # future package to be used with ESRI arcpy tools
     - esridump
+    - simpledbf
     - azure-storage-blob
     - boto3
