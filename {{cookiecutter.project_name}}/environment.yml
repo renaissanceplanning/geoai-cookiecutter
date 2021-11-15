@@ -10,6 +10,7 @@ dependencies:
   - cookiecutter
   - jupyterlab
   - nodejs
+  - appdirs
   - dask
   - conda-forge::fiona
   - conda-forge::pygeos
