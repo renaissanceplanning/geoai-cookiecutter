@@ -56,10 +56,10 @@ GOTO %1
         CALL python "%SCRIPTS_DIR%"\check_package_deps.py
         :: Create new environment from environment file
         CALL mamba env create -f build_environment.yml
-        :: Install the local package in development (experimental) mode
-        CALL python -m pip install -e .
         :: Activate the environment so you can get to work
         CALL activate "%ENV_NAME%"
+        :: Install the local package in development (experimental) mode
+        CALL python -m pip install -e .
         :: NOTE: add git branch switching to activate the correct branch
 
     )
