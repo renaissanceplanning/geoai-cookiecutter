@@ -66,11 +66,11 @@ GOTO %1
         :: Create new environment from environment file
         CALL mamba env create -f build_environment.yml
 
-        :: Install the local package in development (experimental) mode
-        CALL python -m pip install -e .
-
         :: Activate the enironment so you can get to work
         CALL activate "%ENV_NAME%"
+	
+	:: Install the local package in development (experimental) mode
+        CALL python -m pip install -e .
 
     )
     EXIT /B
@@ -85,11 +85,12 @@ GOTO %1
         :: Create new environment from environment file
         CALL mamba env create -f environment_arc.yml
 
-        :: Install the local package in development (experimental) mode
+	:: Activate teh environment so you can get to work
+        CALL activate "%ENV_NAME%"
+	
+	:: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
 
-        :: Activate teh environment so you can get to work
-        CALL activate "%ENV_NAME%"
     )
     EXIT /B
 
