@@ -17,6 +17,7 @@ dependencies:
   - conda-forge::rtree=0.9.3
   - pandas
   - git
+  - appdirs
   - sphinx
   - pip
   - conda-forge::pyarrow
