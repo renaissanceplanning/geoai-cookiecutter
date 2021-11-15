@@ -18,6 +18,7 @@ dependencies:
   - pandas
   - git
   - appdirs
+  - pyshp
   - sphinx
   - pip
   - conda-forge::pyarrow
