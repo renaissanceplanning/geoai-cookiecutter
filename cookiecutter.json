@@ -8,5 +8,5 @@
     "conda_environment_name": "{{ cookiecutter.project_name }}",
     "esri_cloud_gis_url": "https://arcgis.com",
     "esri_cloud_gis_group_name": "{{ cookiecutter.project_name }}",
-    "package_base_branches": "dev_init"
+    "package_base_branch": "dev_init"
 }

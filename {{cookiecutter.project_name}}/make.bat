@@ -24,11 +24,12 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 SETLOCAL
-SET PROJECT_DIR=%cd%
-SET SCRIPTS_DIR=%PROJECT_DIR%\scripts
-SET PROJECT_NAME={{ cookiecutter.project_name }}
+SET PROJECT_DIR = %cd%
+SET SCRIPTS_DIR = %PROJECT_DIR%\scripts
+SET PROJECT_NAME ={{ cookiecutter.project_name }}
 SET SUPPORT_LIBRARY = {{ cookiecutter.support_library }}
-SET ENV_NAME={{ cookiecutter.conda_environment_name }}
+SET ENV_NAME ={{ cookiecutter.conda_environment_name }}
+SET ENV_NAME_ARC = {{ cookiecutter.conda_arc_environment_name }}
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: COMMANDS                                                                     :
@@ -61,7 +62,6 @@ GOTO %1
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
         :: NOTE: add git branch switching to activate the correct branch
-
     )
     EXIT /B
 
@@ -76,6 +76,14 @@ GOTO %1
         CALL python -m pip install -e .
         :: Activate teh environment so you can get to work
         CALL activate "%ENV_NAME_ARC%"
+    )
+    EXIT /B
+
+:: switch local packages to project branch
+:switch_branches
+    ENDLOCAL & (
+        :: Switch local packages to project branch
+        CALL python "%SCRIPTS_DIR%"\package_switcher.py
     )
     EXIT /B
 

@@ -13,7 +13,7 @@ import yaml
 import fiona
 import pandas as pd
 
-from dotenv import find_dotenv, load_dotenv
+# from dotenv import find_dotenv, load_dotenv
 
 # check for arcgis to accomodate projects not needing arcgis
 if importlib.util.find_spec("arcgis") is not None:
