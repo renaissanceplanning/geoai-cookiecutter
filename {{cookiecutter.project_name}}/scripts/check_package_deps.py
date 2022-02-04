@@ -13,30 +13,31 @@ class Environment(object):
     @property
     def env_dict(self):
         """reads yml to a dictionary"""
-        with open(self.yml_file, 'r') as stream:
+        with open(self.yml_file, "r") as stream:
             return yaml.safe_load(stream)
 
     @property
     def env_name(self):
         """returns the name of the env"""
-        return self.env_dict.get('name')
+        return self.env_dict.get("name")
 
     @property
     def env_channels(self):
         """returns a list of channels"""
-        return self.env_dict.get('channels')
+        return self.env_dict.get("channels")
 
     @property
     def env_dependencies(self):
-        return self.env_dict.get('dependencies')
+        return self.env_dict.get("dependencies")
 
     @property
     def conda_deps(self):
         """
         reads out the list of conda dependencies from environment.yml
         """
-        return [item for item in self.env_dict.get('dependencies')
-                if type(item) is not dict]
+        return [
+            item for item in self.env_dict.get("dependencies") if type(item) is not dict
+        ]
 
     @property
     def pip_deps(self):
@@ -44,13 +45,26 @@ class Environment(object):
         checks a environment yaml for pip installs and returns a list
         of packages set in environment if any exist
         """
-        pip_dict = [item for item in self.env_dict.get('dependencies')
-                    if type(item) is dict]
+        pip_dict = [
+            item for item in self.env_dict.get("dependencies") if type(item) is dict
+        ]
         if pip_dict:
             pip_dict = pip_dict[0]
-            return pip_dict['pip']
+            return pip_dict["pip"]
         else:
             return []
+
+    @property
+    def local_packages(self):
+        """
+        reads an environment.yml for local packages and returns a list of package names
+        """
+        local = []
+        for item in self.pip_deps:
+            if item.startswith("-e"):
+                pkg = item.split("/")[-1]
+                local.append(pkg)
+        return local
 
     def get_package_info(self):
         """
@@ -63,21 +77,27 @@ class Environment(object):
         pkg_pip_deps = self.pip_deps
         for item in pkg_pip_deps:
             # if a local package is specified, append its pip and conda deps
-            if item.startswith('-e'):
+            if item.startswith("-e"):
                 # get relative path
-                relative_yml = item.split(' ')[1]
-                yaml_data = Path(relative_yml, 'environment.yml')
+                relative_yml = item.split(" ")[1]
+                yaml_data = Path(relative_yml, "environment.yml")
                 # read yml to dict
                 pkg_env = Environment(yaml_data)
                 # append any dependencies
-                pkg_chans = [chan for chan in pkg_env.env_channels if chan not in channels]
+                pkg_chans = [
+                    chan for chan in pkg_env.env_channels if chan not in channels
+                ]
                 if pkg_chans:
                     channels += pkg_chans
                 if pkg_env.pip_deps:
-                    pkg_pips = [pdeps for pdeps in pkg_env.pip_deps if pdeps not in pip_deps]
+                    pkg_pips = [
+                        pdeps for pdeps in pkg_env.pip_deps if pdeps not in pip_deps
+                    ]
                     if pkg_pips:
                         pip_deps += pkg_pips
-                pkg_cdeps = [cdep for cdep in pkg_env.conda_deps if cdep not in conda_deps]
+                pkg_cdeps = [
+                    cdep for cdep in pkg_env.conda_deps if cdep not in conda_deps
+                ]
                 if pkg_cdeps:
                     conda_deps += pkg_cdeps
         return channels, conda_deps, pip_deps
@@ -109,16 +129,16 @@ def main(project_yml):
     proj_pip_deps.extend(missing_pip)
 
     # update build environment with pkg values
-    pip_dict = {'pip': proj_pip_deps}
+    pip_dict = {"pip": proj_pip_deps}
     proj_conda_deps.append(pip_dict)
-    build_environment = OrderedDict(name=project_env.env_name,
-                                    channels=proj_channels,
-                                    dependencies=proj_conda_deps)
+    build_environment = OrderedDict(
+        name=project_env.env_name, channels=proj_channels, dependencies=proj_conda_deps
+    )
 
     # write out new version of environment with package pips included
-    with open("./build_environment.yml", 'w') as build_yml:
+    with open("./build_environment.yml", "w") as build_yml:
         yaml.dump(dict(build_environment), build_yml)
 
 
 if __name__ == "__main__":
-    main(project_yml=Path(project_dir, 'environment.yml'))
+    main(project_yml=Path(project_dir, "environment.yml"))
