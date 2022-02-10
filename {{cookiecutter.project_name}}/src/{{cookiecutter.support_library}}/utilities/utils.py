@@ -13,7 +13,9 @@ import yaml
 import fiona
 import pandas as pd
 
-# from dotenv import find_dotenv, load_dotenv
+# from dotenv import find_dotenv, load_dotenv   #TODO: determine the need for this
+# # load the .env into the namespace
+# load_dotenv(find_dotenv())    #TODO: determine the need for this
 
 # check for arcgis to accomodate projects not needing arcgis
 if importlib.util.find_spec("arcgis") is not None:
@@ -31,9 +33,6 @@ if importlib.util.find_spec('arcpy') is not None:
     has_arcpy = True
 else:
     has_arcpy = False
-
-# load the .env into the namespace
-load_dotenv(find_dotenv())
 
 
 def _not_none_and_len(string: str) -> bool:
