@@ -1,28 +1,42 @@
-name: {{ cookiecutter.conda_environment_name }}
+name: {{ cookiecutter.conda_arc_environment_name }}
 
 channels:
   - esri
   - conda-forge
 
 dependencies:
-  - esri:arcpy
   - esri::arcgis
-  - cookiecutter
+  - esri::arcpy
+  - pandas
+  - dask
+  - h3-py
   - jupyterlab
   - nodejs
-  - dask
-  - pandas
-  - git
-  - sphinx
+  - mkdocs
+  - munch
+  - momepy
   - pip
-  - conda-forge::pyarrow
+  - pytest
+  - esri::mkl
+  - mkl_fft
+  - mkl-service=2.3
+  - mkl_random
   - python=3.7
   - python-dotenv
-  - r-tidyverse
-  - r-sf
-  - r-tmap
-  - esri::r-arcgisbinding
+  - pyyaml
+  - scipy
+  - scikit-learn
+  - seaborn
+  - shapely
+  - swifter
+  - tabulate
+  - tqdm
+  - xlrd
+  - git     # required for package switcher
+  - GitPython # required for package switcher
   - pip:
+#    - ../../packages/esri_tools  # future package to be used with ESRI arcpy tools
     - esridump
+    - simpledbf
     - azure-storage-blob
     - boto3

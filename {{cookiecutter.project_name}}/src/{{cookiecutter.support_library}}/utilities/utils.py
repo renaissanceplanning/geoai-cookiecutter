@@ -13,7 +13,9 @@ import yaml
 import fiona
 import pandas as pd
 
-from dotenv import find_dotenv, load_dotenv
+# from dotenv import find_dotenv, load_dotenv   #TODO: determine the need for this
+# # load the .env into the namespace
+# load_dotenv(find_dotenv())    #TODO: determine the need for this
 
 # check for arcgis to accomodate projects not needing arcgis
 if importlib.util.find_spec("arcgis") is not None:
@@ -31,9 +33,6 @@ if importlib.util.find_spec('arcpy') is not None:
     has_arcpy = True
 else:
     has_arcpy = False
-
-# load the .env into the namespace
-load_dotenv(find_dotenv())
 
 
 def _not_none_and_len(string: str) -> bool:
@@ -70,7 +69,6 @@ def get_gis():
 def add_group(gis: GIS = None, group_name: str = None) -> Group:
     """
     Add a group to the GIS for the project for saving resources.
-
     Args:
         gis: Optional
             arcgis.gis.GIS object instance.
@@ -162,7 +160,7 @@ def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False
     data_pth = Path(data_pth) if isinstance(data_pth, str) else data_pth
 
     # iterate the data subdirectories
-    for data_name in ['interim', 'raw', 'processed', 'external']:
+    for data_name in ['INTERIM', 'RAW', 'PRODUCTION', 'REF']:
 
         # ensure the data subdirectory exists
         dir_pth = data_pth / data_name
@@ -171,7 +169,6 @@ def create_local_data_resources(data_pth: Path = None, mobile_geodatabases=False
 
         # if working in an arcpy environment
         if has_arcpy:
-
             # remove the file geodatabase if it exists and recreate it to make sure compatible with version of Pro
             fgdb_pth = dir_pth / f'{data_name}.gdb'
             if fgdb_pth.exists():

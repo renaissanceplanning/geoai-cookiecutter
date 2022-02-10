@@ -17,15 +17,15 @@ dependencies:
   - conda-forge::geopandas
   - conda-forge::rtree=0.9.3
   - pandas
-  - git
+  - git     # required for package switcher
+  - GitPython # required for package switcher
+  - appdirs
+  - pyshp
   - sphinx
   - pip
   - conda-forge::pyarrow
   - python=3.7
   - python-dotenv
-  - r-tidyverse
-  - r-sf
-  - r-tmap
   - pip:
 #    - -e ../../packages/emma
     - -e ../../packages/rputils

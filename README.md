@@ -18,23 +18,23 @@ encourage consistency, increase repeatability, encourage documentation, and enco
 ### Open Source Project
 - open anaconda prompt as admin
     ``` cmd
-    > conda install -c conda-forge cookiecutter
+    conda install -c conda-forge cookiecutter
     ```
 ### ESRI Project
 - open anaconda prompt for Arcgis Pro (Start / Arcgis / Python Command Prompt)
     ``` cmd
-    > conda install -c conda-forge cookiecutter
+    conda install -c conda-forge cookiecutter
     ```
 
 ### To start a new project, run:
 - Open anaconda prompt and change directory (choose anaconda prompt according to project type)
     ``` cmd
-    > cd path/to/local/install
+    cd path/to/local/install
     
      ex: --> cd C:\github\projects
     ```
     ``` cmd
-    > cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
+    cookiecutter https://github.com/renaissanceplanning/renplan-esri-cookiecutter
     ```
   - follow the prompts 
 - Push the newly created repo up to github

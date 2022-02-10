@@ -30,8 +30,6 @@ if importlib.util.find_spec('arcpy') is not None:
 else:
     has_arcpy = False
 
-new_prj_name = '{{cookiecutter.project_name}}'
-
 
 def setup_data(data_pth: Path) -> Path:
     """create all the data resources for the available environment from scratch to ensure version compatibility"""
@@ -46,7 +44,6 @@ def setup_data(data_pth: Path) -> Path:
 
         # if working in an arcpy environment
         if has_arcpy:
-
             # remove the file geodatabase if it exists and recreate it to make sure compatible with version of Pro
             fgdb_pth = dir_pth / f'{data_name}.gdb'
             if fgdb_pth.exists():
@@ -62,7 +59,9 @@ def setup_data(data_pth: Path) -> Path:
     return data_pth
 
 
-def copy_aprx(dir_arcgis: Path, new_prj_name: str, old_prj_name: str = 'cookiecutter',
+def copy_aprx(dir_arcgis: Path,
+              new_prj_name: str = '{{cookiecutter.project_name}}',
+              old_prj_name: str = 'cookiecutter',
               remove_originals: bool = True) -> Path:
     """Copy the APRX with the new name."""
     # aprx paths
@@ -116,18 +115,18 @@ if __name__ == '__main__':
 
     # set up some paths to resources
     dir_prj = Path.cwd()
-    dir_data_pth = dir_prj/'data'
-    dir_arcgis_pth = dir_prj/'arcgis'
+    # dir_data_pth = dir_prj/'data'
+    # dir_arcgis_pth = dir_prj/'arcgis'
     env_pth = dir_prj/'env'
 
     # ensure the data directories and geodatabases are all set up
-    setup_data(dir_data_pth)
+    # setup_data(dir_data_pth)
 
     # set up the ArcGIS Pro project if it exists
-    if has_arcpy:
-        new_aprx_pth = copy_aprx(dir_arcgis_pth, new_prj_name)
-    else:
-        shutil.rmtree(dir_arcgis_pth)
+    # if has_arcpy:
+    #     new_aprx_pth = copy_aprx(
+    #         dir_arcgis=dir_arcgis_pth,
+    #     )
 
     # rename the env file
     env_pth.rename(dir_prj/'.env')

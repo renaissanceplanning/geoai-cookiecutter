@@ -7,7 +7,6 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROJECT_NAME = {{ cookiecutter.project_name }}
 ENV_NAME = {{ cookiecutter.conda_environment_name }}
-DATA_DIR = {{ cookiecutter.data_directory }}
 
 #################################################################################
 # COMMANDS                                                                      #
