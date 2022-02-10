@@ -5,7 +5,7 @@
     "author_name": "Renaissance Planning",
     "description": "A short description of the project.",
     "open_source_license": ["Apache 2.0", "MIT", "BSD-3-Clause", "No license file"],
-    "conda_environment_name": "{{ cookiecutter.project_name }}",
-    "conda_arc_environment_name": "{{ cookiecutter.project_name }}_arc",
+    "conda_environment_name": "{{ cookiecutter.support_library }}",
+    "conda_arc_environment_name": "{{ cookiecutter.conda_environment_name }}_arc",
     "package_base_branch": "dev_init"
 }
