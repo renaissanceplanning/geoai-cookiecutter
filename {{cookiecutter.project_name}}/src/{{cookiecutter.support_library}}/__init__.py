@@ -7,7 +7,7 @@ __copyright__ = 'Copyright 2020 by {{ cookiecutter.author_name }}'
 __all__ = ['example_function', 'ExampleObject']
 
 # add specific imports below if you want to organize your code into modules, which is mostly what I do
-from .utilities import *   # add imports for other modules here
+from .utilities import utils
 
 from typing import Union
 from pathlib import Path
