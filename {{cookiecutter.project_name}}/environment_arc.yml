@@ -32,8 +32,8 @@ dependencies:
   - tabulate
   - tqdm
   - xlrd
-  - git
-  - GitPython
+  - git     # required for package switcher
+  - GitPython # required for package switcher
   - pip:
 #    - ../../packages/esri_tools  # future package to be used with ESRI arcpy tools
     - esridump
