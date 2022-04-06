@@ -115,18 +115,7 @@ if __name__ == '__main__':
 
     # set up some paths to resources
     dir_prj = Path.cwd()
-    # dir_data_pth = dir_prj/'data'
-    # dir_arcgis_pth = dir_prj/'arcgis'
     env_pth = dir_prj/'env'
-
-    # ensure the data directories and geodatabases are all set up
-    # setup_data(dir_data_pth)
-
-    # set up the ArcGIS Pro project if it exists
-    # if has_arcpy:
-    #     new_aprx_pth = copy_aprx(
-    #         dir_arcgis=dir_arcgis_pth,
-    #     )
 
     # rename the env file
     env_pth.rename(dir_prj/'.env')
