@@ -27,9 +27,9 @@ dependencies:
   - python=3.7
   - python-dotenv
   - pip:
-#    - -e ../../packages/emma
     - -e ../../packages/rputils
 #    - -e ../../packages/algi
+#    - -e ../../packages/emma
 #    - -e ../../packages/gary
 #    - -e ../../packages/biff
 #    - -e ../../packages/roxy

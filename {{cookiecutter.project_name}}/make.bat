@@ -25,7 +25,7 @@
 
 SETLOCAL
 SET PROJECT_DIR = %cd%
-SET SCRIPTS_DIR = %PROJECT_DIR%\scripts
+::SET SCRIPTS_DIR = %~dp0\scripts
 SET PROJECT_NAME ={{ cookiecutter.project_name }}
 SET SUPPORT_LIBRARY = {{ cookiecutter.support_library }}
 SET ENV_NAME ={{ cookiecutter.conda_environment_name }}
@@ -54,7 +54,7 @@ GOTO %1
         :: Install MAMBA for faster solves
         CALL conda install -c conda-forge mamba yaml -y
         :: update environment with package dependencies
-        CALL python "%SCRIPTS_DIR%"\check_package_deps.py
+        CALL python check_package_deps.py
         :: Create new environment from environment file
         CALL mamba env create -f build_environment.yml
         :: Activate the environment so you can get to work
