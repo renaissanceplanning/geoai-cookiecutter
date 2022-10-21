@@ -1,31 +1,13 @@
 name: {{ cookiecutter.conda_environment_name }}
 
 channels:
-  - esri
   - conda-forge
   - anaconda
 
 dependencies:
-  - esri::arcgis
-  - cookiecutter
-  - jupyterlab
-  - nodejs
   - appdirs
-  - dask
-  - conda-forge::fiona
-  - conda-forge::pygeos
-  - conda-forge::geopandas
-  - conda-forge::rtree=0.9.3
-  - pandas
-  - git     # required for package switcher
-  - GitPython # required for package switcher
-  - appdirs
-  - pyshp
-  - sphinx
   - pip
-  - conda-forge::pyarrow
   - python=3.7
-  - python-dotenv
   - pip:
     - -e ../../packages/rputils
 #    - -e ../../packages/algi
@@ -34,6 +16,3 @@ dependencies:
 #    - -e ../../packages/biff
 #    - -e ../../packages/roxy
 #    - -e ../../packages/sophia
-    - esridump
-    - azure-storage-blob
-    - boto3
