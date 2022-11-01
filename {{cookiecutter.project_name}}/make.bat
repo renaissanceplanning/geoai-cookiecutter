@@ -39,14 +39,14 @@ SET ENV_NAME_ARC = {{ cookiecutter.conda_arc_environment_name }}
 GOTO %1
 
 :: Perform user variable setup
-:setup_user
-    ENDLOCAL & (
-        ECHO ^>^>^> running user_setup.py
-        CALL activate "%ENV_NAME%"
-        CALL python "%SCRIPTS_DIR%"\setup_user.py
-        ECHO ^>^>^> User setup complete
-    )
-    EXIT /B
+:::setup_user
+::    ENDLOCAL & (
+::        ECHO ^>^>^> running user_setup.py
+::        CALL activate "%ENV_NAME%"
+::        CALL python "%SCRIPTS_DIR%"\setup_user.py
+::        ECHO ^>^>^> User setup complete
+::    )
+::    EXIT /B
 
 :: Build the local environment from the environment file
 :env

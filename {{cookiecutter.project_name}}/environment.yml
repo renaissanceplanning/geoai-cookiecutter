@@ -7,7 +7,6 @@ channels:
 dependencies:
   - appdirs
   - pip
-  - python=3.7
   - pip:
     - -e ../../packages/rputils
 #    - -e ../../packages/algi
