@@ -3,7 +3,7 @@ import subprocess
 
 PROJECT_DIR = Path(__file__).parent.absolute()
 SCRIPTS_DIR = Path(PROJECT_DIR, "scripts")
-PACKAGE_DEPS_SCRIPT = Path(SCRIPTS_DIR, "check_package_deps.py")
+PACKAGE_DEPS_SCRIPT = Path(SCRIPTS_DIR, "{{cookiecutter.project_name}}/check_package_deps.py")
 
 PROJECT_NAME = {{cookiecutter.project_name}}
 SUPPORT_LIBRARY = {{cookiecutter.support_library}}
