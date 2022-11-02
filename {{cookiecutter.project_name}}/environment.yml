@@ -8,6 +8,7 @@ dependencies:
   - appdirs
   - pip
   - pip:
+#    - -e git+git://github.com/renaissanceplanning/rputils@DEV
     - -e ../../packages/rputils
 #    - -e ../../packages/algi
 #    - -e ../../packages/emma
