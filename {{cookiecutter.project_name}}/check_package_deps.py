@@ -3,12 +3,16 @@ import yaml
 from pathlib import Path
 from collections import OrderedDict
 
+import argparse
+
 project_dir = Path(__file__).resolve().parent
 
 
 class Environment(object):
-    def __init__(self, yml_file):
+    def __init__(self, yml_file, pkg_prj_switch=False):
         self.yml_file = yml_file
+        self.pkg_prj = pkg_prj_switch
+        self.pkg_pip_deps = self.pip_deps()
 
     @property
     def env_dict(self):
@@ -31,6 +35,10 @@ class Environment(object):
         return self.env_dict.get("dependencies")
 
     @property
+    def rp_package_deps(self):
+        return self.env_dict.get("rp_dependencies")
+
+    @property
     def conda_deps(self):
         """
         reads out the list of conda dependencies from environment.yml
@@ -38,21 +46,6 @@ class Environment(object):
         return [
             item for item in self.env_dict.get("dependencies") if type(item) is not dict
         ]
-
-    @property
-    def pip_deps(self):
-        """
-        checks a environment yaml for pip installs and returns a list
-        of packages set in environment if any exist
-        """
-        pip_dict = [
-            item for item in self.env_dict.get("dependencies") if type(item) is dict
-        ]
-        if pip_dict:
-            pip_dict = pip_dict[0]
-            return pip_dict["pip"]
-        else:
-            return []
 
     @property
     def local_packages(self):
@@ -66,6 +59,23 @@ class Environment(object):
                 local.append(pkg)
         return local
 
+    def pip_deps(self):
+        """
+        checks an environment yaml for pip installs and returns a list
+        of packages set in environment if any exist
+        """
+        deps = "dependencies"
+        if self.pkg_prj:
+            deps = "rp_dependencies"
+        pip_dict = [
+            item for item in self.env_dict.get(deps) if type(item) is dict
+        ]
+        if len(pip_dict) > 0:
+            pip_dict = pip_dict[0]
+            return pip_dict["pip"]
+        else:
+            return []
+
     def get_package_info(self):
         """
         searches an environment.yml for relative editable pip installs,
@@ -74,7 +84,8 @@ class Environment(object):
         pip_deps = []
         conda_deps = []
         channels = []
-        pkg_pip_deps = self.pip_deps
+        pkg_pip_deps = self.pip_deps()
+
         for item in pkg_pip_deps:
             # if a local package is specified, append its pip and conda deps
             if item.startswith("-e"):
@@ -82,16 +93,16 @@ class Environment(object):
                 relative_yml = item.split(" ")[1]
                 yaml_data = Path(relative_yml, "environment.yml")
                 # read yml to dict
-                pkg_env = Environment(yaml_data)
+                pkg_env = Environment(yml_file=yaml_data)
                 # append any dependencies
                 pkg_chans = [
                     chan for chan in pkg_env.env_channels if chan not in channels
                 ]
                 if pkg_chans:
                     channels += pkg_chans
-                if pkg_env.pip_deps:
+                if pkg_env.pkg_pip_deps:
                     pkg_pips = [
-                        pdeps for pdeps in pkg_env.pip_deps if pdeps not in pip_deps
+                        pdeps for pdeps in pkg_env.pkg_pip_deps if pdeps not in pip_deps
                     ]
                     if pkg_pips:
                         pip_deps += pkg_pips
@@ -107,13 +118,15 @@ def missing(list_a, list_b):
     return [item for item in list_b if item not in list_a]
 
 
-def main(project_yml):
-    project_env = Environment(yml_file=project_yml)
+def main(project_yml, prj_pkg_switch):
+
+    project_env = Environment(yml_file=project_yml,
+                              pkg_prj_switch=prj_pkg_switch)
 
     # generate list of conda and pip dependencies in project
     proj_channels = project_env.env_channels
     proj_conda_deps = project_env.conda_deps
-    proj_pip_deps = project_env.pip_deps
+    proj_pip_deps = project_env.pip_deps()
 
     # generate list of channels and dependencies (conda and pip) in local packages
     pkg_channels, pkg_conda_deps, pkg_pip_deps = project_env.get_package_info()
@@ -141,4 +154,14 @@ def main(project_yml):
 
 
 if __name__ == "__main__":
-    main(project_yml=Path(project_dir, "environment.yml"))
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--package', dest='package', default=False, action='store_true')
+    args = parser.parse_args()
+
+    if args.package:
+        print('building package version of environment')
+    else:
+        print('building project version of environment')
+    main(project_yml=Path(project_dir, "environment.yml"), prj_pkg_switch=args.package)
+    # main(project_yml=Path(project_dir, "environment.yml"), prj_pkg_switch=True)

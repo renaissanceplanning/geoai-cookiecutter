@@ -1,4 +1,4 @@
-name: {{ cookiecutter.conda_environment_name }}
+name: test
 
 channels:
   - conda-forge
@@ -8,7 +8,6 @@ dependencies:
   - appdirs
   - pip
   - pip:
-#    - -e git+git://github.com/renaissanceplanning/rputils@DEV
     - -e ../../packages/rputils
 #    - -e ../../packages/algi
 #    - -e ../../packages/emma
@@ -16,3 +15,16 @@ dependencies:
 #    - -e ../../packages/biff
 #    - -e ../../packages/roxy
 #    - -e ../../packages/sophia
+
+
+rp_dependencies:
+  - appdirs
+  - pip
+  - pip:
+      - -e ../../rputils
+#      - -e ../algi
+#      - -e ../emma
+#      - -e ../gary
+#      - -e ../biff
+#      - -e ../roxy
+#      - -e ../sophia
