@@ -29,7 +29,6 @@ SET PROJECT_DIR=%cd%
 SET PROJECT_NAME={{cookiecutter.project_name}}
 SET SUPPORT_LIBRARY={{ cookiecutter.support_library }}
 SET ENV_NAME={{ cookiecutter.conda_environment_name }}
-SET ENV_NAME_ARC={{ cookiecutter.conda_arc_environment_name }}
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: COMMANDS                                                                     :

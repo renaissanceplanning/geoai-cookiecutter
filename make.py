@@ -8,7 +8,6 @@ PACKAGE_DEPS_SCRIPT = Path(SCRIPTS_DIR, "{{cookiecutter.project_name}}/check_pac
 PROJECT_NAME = {{cookiecutter.project_name}}
 SUPPORT_LIBRARY = {{cookiecutter.support_library}}
 ENV_NAME = {{cookiecutter.conda_environment_name}}
-ENV_NAME_ARC = {{cookiecutter.conda_arc_environment_name}}
 
 
 # commands
