@@ -1,4 +1,4 @@
-name: "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
+name: {{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}
 
 channels:
   - conda-forge
