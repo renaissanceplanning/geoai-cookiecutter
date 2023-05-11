@@ -1,4 +1,4 @@
-name: test
+name: "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
 
 channels:
   - conda-forge
@@ -9,6 +9,8 @@ dependencies:
   - pip
   - pip:
     - -e ../../packages/rputils
+#    - -e ../../packages/sam
+#    - -e ../../packages/sammie
 #    - -e ../../packages/algi
 #    - -e ../../packages/emma
 #    - -e ../../packages/gary
@@ -23,6 +25,8 @@ rp_dependencies:
   - pip:
       - -e ../../rputils
 #      - -e ../algi
+#      - -e ../sam
+#      - -e ../sammie
 #      - -e ../emma
 #      - -e ../gary
 #      - -e ../biff
