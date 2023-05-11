@@ -60,7 +60,6 @@ GOTO %1
         CALL activate %ENV_NAME%
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
-        :: NOTE: add git branch switching to activate the correct branch
     )
     EXIT /B
 
