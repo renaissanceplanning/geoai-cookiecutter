@@ -24,12 +24,12 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 SETLOCAL
-SET PROJECT_DIR = %cd%
-::SET SCRIPTS_DIR = %~dp0\scripts
-SET PROJECT_NAME ={{ cookiecutter.project_name }}
-SET SUPPORT_LIBRARY = {{ cookiecutter.support_library }}
-SET ENV_NAME ={{ cookiecutter.conda_environment_name }}
-SET ENV_NAME_ARC = {{ cookiecutter.conda_arc_environment_name }}
+SET PROJECT_DIR=%cd%
+::SET SCRIPTS_DIR=%~dp0\scripts
+SET PROJECT_NAME={{cookiecutter.project_name}}
+SET SUPPORT_LIBRARY={{ cookiecutter.support_library }}
+SET ENV_NAME={{ cookiecutter.conda_environment_name }}
+SET ENV_NAME_ARC={{ cookiecutter.conda_arc_environment_name }}
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: COMMANDS                                                                     :
@@ -58,7 +58,7 @@ GOTO %1
         :: Create new environment from environment file
         CALL mamba env create -f build_environment.yml
         :: Activate the environment so you can get to work
-        CALL activate "%ENV_NAME%"
+        CALL activate %ENV_NAME%
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
         :: NOTE: add git branch switching to activate the correct branch
@@ -75,7 +75,7 @@ GOTO %1
         :: Install the local package in development (experimental) mode
         CALL python -m pip install -e .
         :: Activate teh environment so you can get to work
-        CALL activate "%ENV_NAME_ARC%"
+        CALL activate %ENV_NAME_ARC%
     )
     EXIT /B
 
@@ -83,25 +83,25 @@ GOTO %1
 :switch_branches
     ENDLOCAL & (
         :: Switch local packages to project branch
-        CALL python "%SCRIPTS_DIR%"\package_switcher.py
+        CALL python %SCRIPTS_DIR%\package_switcher.py
     )
     EXIT /B
 
 :: Activate the environment
 :env_activate
-    ENDLOCAL & CALL activate "%ENV_NAME%"
+    ENDLOCAL & CALL activate %ENV_NAME%
     EXIT /B
 
 :: Activate the environment
 :env_activate_arc
-    ENDLOCAL & CALL activate "%ENV_NAME_ARC%"
+    ENDLOCAL & CALL activate %ENV_NAME_ARC%
     EXIT /B
 
 :: Remove the environment
 :env_remove
 	ENDLOCAL & (
 		CALL conda deactivate
-		CALL conda env remove --name "%ENV_NAME%" -y
+		CALL conda env remove --name %ENV_NAME% -y
 	)
 	EXIT /B
 
@@ -109,61 +109,6 @@ GOTO %1
 :env_remove_arc
 	ENDLOCAL & (
 		CALL conda deactivate
-		CALL conda env remove --name "%ENV_NAME_ARC%" -y
+		CALL conda env remove --name %ENV_NAME_ARC% -y
 	)
 	EXIT /B
-
-
-:: Perform data preprocessing steps contained in the make_data.py script.
-:data
-    ENDLOCAL & (
-        CALL activate "%ENV_NAME%"
-        CALL python src/make_data.py
-        ECHO ^>^>^> Data processed.
-    )
-    EXIT /B
-
-:: Make documentation using Sphinx!
-:docs
-    ENDLOCAL & (
-        CALL docsrc/make.bat github
-    )
-	EXIT /B
-
-
-:: Make the package for uploading
-:build
-    ENDLOCAL & (
-
-        :: Build the pip package
-        CALL python setup.py sdist
-
-        :: Build conda package
-        CALL conda build ./conda-recipe --output-folder ./conda-recipe/conda-build
-
-    )
-    EXIT /B
-
-:build_upload
-    ENDLOCAL & (
-
-        :: Build the pip package
-        CALL python setup.py sdist bdist_wheel
-        CALL twine upload ./dist/*
-
-        :: Build conda package
-        CALL conda build ./conda-recipe --output-folder ./conda-recipe/conda-build
-        CALL anaconda upload ./conda-recipe/conda-build/win-64/{{ cookiecutter.project_name }}*.tar.bz2
-
-    )
-    EXIT /B
-
-:: Run all tests in module
-:test
-	ENDLOCAL & (
-		activate "%ENV_NAME%"
-		pytest
-	)
-	EXIT /B
-
-EXIT /B
